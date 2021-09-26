@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Quiz App - Vue Tailwindcss</title>
+        <link rel="stylesheet" href="dist/styles.css" />
+        <script src="https://unpkg.com/vue@3.0.2"></script>
+    </head>
+    <body class="antialiased text-gray-800 bg-gray-200" id="app">
+        <div class="flex w-full h-screen justify-center items-center">
+            <div class="w-full max-w-xl">
+                <h1 class="font-bold text-5xl text-center">Crazy Quiz</h1>
+                <div class="bg-white p-12 rounded-lg shadow-lg w-full mt-8">
+                    <div v-if="index < count">
+                        <p class="text-2xl font-bold">{{ questions[index]['question']}}</p>
+                        <label :for="key" class="block mt-4 border border-gray-300 rounded-lg py-2 px-6 text-lg " v-for="option,key in questions[index]['options']" :class="{'hover:bg-gray-200 cursor-pointer' : selectedAnswer == ''},
+                                {'bg-red-300' : selectedAnswer == key},
+                                {'bg-green-400' : key == questions[index]['correctAnswer'] && selectedAnswer != ''}">
+                            <input 
+                                type="radio"
+                                :id="key"
+                                class="hidden"
+                                :value="key" 
+                                @change="answered($event)"
+                                :disabled = "selectedAnswer != ''"
+                                v-model="selectedAnswer"
+                            />
+                            {{option}}
+                        </label>
+                        <div class="mt-6 flow-root">
+                            <button class="float-right bg-indigo-600 text-white text-sm font-bold tracking-wide rounded-full px-5 py-2" @click="nextQuestion" v-show="selectedAnswer != '' && index < count-1">Next &gt</button>
+                            <button class="float-right bg-indigo-600 text-white text-sm font-bold tracking-wide rounded-full px-5 py-2" @click="nextQuestion" v-show="selectedAnswer != '' && (index == count-1)">Submit</button>
+                        </div>
+                    </div>
+                    <div v-else>
+                       <h2 class="text-bold text-2xl">Results</h2> 
+                       <div class="flex justify-centermt-6">
+                           <p>Correct Answers: <span class="text-3xl text-green-600 font-bold">{{correctAnswers}}</span></p>
+                           <p>Wrong Answers: <span class="text-3xl text-red-600 font-bold">{{wrongAnswers}}</span></p>
+                           <div class="mt-6 flow-root">
+                            <button class="float-right bg-indigo-600 text-white text-sm font-bold tracking-wide rounded-full px-5 py-2" @click="playAgain">Play Again</button>
+                        </div>
+                       </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>

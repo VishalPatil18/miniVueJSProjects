@@ -1,0 +1,22 @@
+/* ./src/index.css */
+/*! @import */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply bg-gray-800;
+    max-width: 575px;
+    margin: 0 auto;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-color: rgba(75, 85, 99, 1);
+}
+
+main{
+    max-height: calc(100vh - 129px);
+}
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
